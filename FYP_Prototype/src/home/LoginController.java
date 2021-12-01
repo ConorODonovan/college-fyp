@@ -30,38 +30,18 @@ public class LoginController {
 
     SceneController homepage = new SceneController();
 
+    public boolean loginCheck() {
+        return loginUsernameField.getText().equals("test") && loginPasswordField.getText().equals("test");
+    }
+
     @FXML
-    public void switchToHomepage(ActionEvent event) throws IOException
-    {
-        if (loginCheck())
-        {
+    public void switchToHomepage(ActionEvent event) throws IOException {
+        if (loginCheck()) {
             Parent root = FXMLLoader.load(getClass().getResource("/home/Homepage.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root, 1280, 720);
+            scene = new Scene(root, 1600, 900);
             stage.setScene(scene);
             stage.show();
         }
     }
-
-    public boolean loginCheck()
-    {
-        return loginUsernameField.getText().equals("test") && loginPasswordField.getText().equals("test");
-    }
-
-
-
-//    @FXML
-//    public void login() throws IOException
-//    {
-//        if (loginUsernameField.getText().equals("test") && loginPasswordField.getText().equals("test"))
-//        {
-//            System.out.println("Login Successful");
-//            SceneController loginSuccessful = new SceneController();
-//            loginSuccessful.switchToHomepage();
-//        }
-//        else
-//        {
-//            System.out.println("Login Failed");
-//        }
-//    }
 }
