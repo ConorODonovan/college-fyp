@@ -1,0 +1,15 @@
+#login-vbox-left {
+    -fx-background-color: coral;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+#login-vbox-right {
+    -fx-background-color: cyan;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+#login-label {
+    -fx-margin: auto;
+}

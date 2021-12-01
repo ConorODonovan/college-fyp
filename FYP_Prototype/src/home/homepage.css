@@ -1,0 +1,27 @@
+#homepage-borderpane {
+    -fx-background-color: cyan;
+}
+
+#vbox-top-left {
+    -fx-background-color: coral;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+#vbox-top-right {
+    -fx-background-color: coral;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+#vbox-bottom-left {
+    -fx-background-color: coral;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+#vbox-bottom-right {
+    -fx-background-color: coral;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
