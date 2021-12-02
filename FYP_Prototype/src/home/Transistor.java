@@ -19,6 +19,9 @@ public class Transistor extends ImageView {
     {
         this.transistorState = state;
 
+        this.setFitHeight(100);
+        this.setFitWidth(100);
+
         if (state)
         {
 //            this.transistorOn = new Image(getClass().getResourceAsStream("/home/images/logicgateicons/Transistor_ON.png"));

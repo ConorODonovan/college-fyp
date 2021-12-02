@@ -1,27 +1,31 @@
 #homepage-borderpane {
-    -fx-background-color: cyan;
+    -fx-background-color: #B2DFDB;
+}
+
+#homepage-top-hbox {
+    -fx-background-color: #0097A7;
 }
 
 #vbox-top-left {
-    -fx-background-color: coral;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
 }
 
 #vbox-top-right {
-    -fx-background-color: coral;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
 }
 
 #vbox-bottom-left {
-    -fx-background-color: coral;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
 }
 
 #vbox-bottom-right {
-    -fx-background-color: coral;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
 }

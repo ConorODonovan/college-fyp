@@ -3,13 +3,18 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane id="homepage-borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.HomepageController">
+<BorderPane id="homepage-borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.HomepageController">
     <center>
         <GridPane id="homepage-gridpane" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -27,43 +32,102 @@
                 <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
             </padding>
             <children>
-                <VBox id="vbox-top-left" prefHeight="200.0" prefWidth="100.0">
+                <VBox id="vbox-top-left" fx:id="homepageVBoxTopLeft" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                     <GridPane.margin>
-                        <Insets bottom="32.0" left="64.0" right="64.0" top="32.0" />
+                        <Insets bottom="64.0" left="256.0" right="128.0" top="64.0" />
                     </GridPane.margin>
                     <children>
-                        <Label text="Transistor Exercise" />
-                        <Button fx:id="transistorExercise" mnemonicParsing="false" onAction="#switchToTransistorExercise" text="Transistor Exercise" />
+                        <Label text="Transistor Exercise" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="32.0" />
+                     </padding></Label>
+                        <Button fx:id="transistorExercise" mnemonicParsing="false" onAction="#switchToTransistorExercise" text="Transistor Exercise">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></Button>
                     </children>
                 </VBox>
-                <VBox id="vbox-top-right" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                <VBox id="vbox-top-right" fx:id="homepageVBoxTopRight" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                     <GridPane.margin>
-                        <Insets bottom="32.0" left="64.0" right="64.0" top="32.0" />
+                        <Insets bottom="64.0" left="128.0" right="256.0" top="64.0" />
                     </GridPane.margin>
                     <children>
-                        <Label text="Game Engine" />
-                        <Button mnemonicParsing="false" text="Game Engine" />
+                        <Label text="Game Engine" textFill="WHITE">
+                     <padding>
+                        <Insets bottom="32.0" />
+                     </padding>
+                     <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                     </font></Label>
+                        <Button fx:id="gameEngineButton" mnemonicParsing="false" onAction="#switchToGameEngine" text="Game Engine" />
                     </children>
                 </VBox>
-                <VBox id="vbox-bottom-left" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                <VBox id="vbox-bottom-left" fx:id="homepageVBoxBottomLeft" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets bottom="32.0" left="64.0" right="64.0" top="32.0" />
+                        <Insets bottom="64.0" left="256.0" right="128.0" top="64.0" />
                     </GridPane.margin>
                     <children>
-                        <Label text="Test Label" />
+                        <Label text="Test Label" textFill="WHITE">
+                     <padding>
+                        <Insets bottom="32.0" />
+                     </padding>
+                     <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                     </font></Label>
                         <Button mnemonicParsing="false" text="Test Button" />
                     </children>
                 </VBox>
-                <VBox id="vbox-bottom-right" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <VBox id="vbox-bottom-right" fx:id="homepageVBoxBottomRight" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets bottom="32.0" left="64.0" right="64.0" top="32.0" />
+                        <Insets bottom="64.0" left="128.0" right="256.0" top="64.0" />
                     </GridPane.margin>
                     <children>
-                        <Label text="Logout" />
+                        <Label text="Logout" textFill="WHITE">
+                     <padding>
+                        <Insets bottom="32.0" />
+                     </padding>
+                     <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                     </font></Label>
                         <Button mnemonicParsing="false" text="Logout" />
                     </children>
                 </VBox>
             </children>
         </GridPane>
     </center>
+   <top>
+      <HBox id="homepage-top-hbox" prefHeight="76.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="76.0" prefWidth="1603.0">
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

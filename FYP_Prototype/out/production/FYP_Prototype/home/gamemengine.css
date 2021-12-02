@@ -1,0 +1,11 @@
+#game-engine-top-hbox {
+    -fx-background-color: #0097A7;
+}
+
+#game-engine-vbox-left {
+    -fx-background-color: #00BCD4;
+}
+
+#game-engine-main-pane {
+    -fx-background-color: linear-gradient(from 100% 0% to 100% 100%, #BBDEFB, #FFFFFF);
+}

@@ -36,6 +36,8 @@ public class TransistorExerciseController {
     @FXML
     Button buttonXNOR;
 
+    Draggable draggable = new Draggable();
+
     public TransistorExerciseController()
     {
 
@@ -50,9 +52,11 @@ public class TransistorExerciseController {
 
         transistor.setPickOnBounds(true);
 
+        draggable.makeDraggable(transistor);
+
         transistor.setOnMouseClicked(e -> {
             transistor.changeState();
-            System.out.println("Clicked the ON image!");
+//            System.out.println("Clicked the ON image!");
         });
     }
 
@@ -65,9 +69,74 @@ public class TransistorExerciseController {
 
         transistor.setPickOnBounds(true);
 
+        draggable.makeDraggable(transistor);
+
         transistor.setOnMouseClicked(e -> {
             transistor.changeState();
-            System.out.println("Clicked the OFF image!");
+//            System.out.println("Clicked the OFF image!");
         });
+    }
+
+    @FXML
+    public void createLogicGateAND()
+    {
+        LogicGate logicGate = new LogicGate(1);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void createLogicGateNAND()
+    {
+        LogicGate logicGate = new LogicGate(2);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void createLogicGateNOR()
+    {
+        LogicGate logicGate = new LogicGate(3);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void createLogicGateNOT()
+    {
+        LogicGate logicGate = new LogicGate(4);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void createLogicGateOR()
+    {
+        LogicGate logicGate = new LogicGate(5);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void createLogicGateXNOR()
+    {
+        LogicGate logicGate = new LogicGate(6);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void createLogicGateXOR()
+    {
+        LogicGate logicGate = new LogicGate(7);
+        transistormainpane.getChildren().add(logicGate);
+        logicGate.setPickOnBounds(true);
+        draggable.makeDraggable(logicGate);
     }
 }

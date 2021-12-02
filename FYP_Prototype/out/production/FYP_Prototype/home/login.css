@@ -1,15 +1,33 @@
+#login-main-borderpane {
+    -fx-background-color: #B2DFDB;
+}
+
+#login-label {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 48px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 800;
+}
+
+#register-label {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 48px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 800;
+}
+
+#login-top-vbox {
+   -fx-background-color: #0097A7;
+}
+
 #login-vbox-left {
-    -fx-background-color: coral;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
 }
 
 #login-vbox-right {
-    -fx-background-color: cyan;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
-}
-
-#login-label {
-    -fx-margin: auto;
 }

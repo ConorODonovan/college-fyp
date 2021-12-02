@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="1600.0" stylesheets="@transistorexercise.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.TransistorExerciseController">
    <children>
-      <VBox id="transistor-left-vbox" layoutX="-2.0" layoutY="76.0" prefHeight="826.0" prefWidth="305.0">
+      <VBox id="transistor-left-vbox" layoutX="-2.0" layoutY="76.0" prefHeight="825.0" prefWidth="305.0">
          <children>
             <Accordion>
               <panes>
@@ -33,12 +33,12 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="829.0" prefWidth="303.0">
                            <children>
-                              <Button fx:id="buttonAND" layoutX="-1.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="AND" />
-                              <Button fx:id="buttonNOT" layoutX="-1.0" layoutY="59.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="NOT" />
-                              <Button fx:id="buttonOR" layoutX="-1.0" layoutY="122.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="OR" />
-                              <Button fx:id="buttonXOR" layoutX="-1.0" layoutY="185.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="XOR" />
-                              <Button fx:id="buttonNAND" layoutY="248.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="NAND" />
-                              <Button fx:id="buttonNOR" layoutY="311.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="NOR" />
+                              <Button fx:id="buttonAND" layoutX="-1.0" mnemonicParsing="false" onAction="#createLogicGateAND" prefHeight="63.0" prefWidth="305.0" text="AND" />
+                              <Button fx:id="buttonNOT" layoutX="-1.0" layoutY="59.0" mnemonicParsing="false" onAction="#createLogicGateNOT" prefHeight="63.0" prefWidth="305.0" text="NOT" />
+                              <Button fx:id="buttonOR" layoutX="-1.0" layoutY="122.0" mnemonicParsing="false" onAction="#createLogicGateOR" prefHeight="63.0" prefWidth="305.0" text="OR" />
+                              <Button fx:id="buttonXOR" layoutX="-1.0" layoutY="185.0" mnemonicParsing="false" onAction="#createLogicGateXOR" prefHeight="63.0" prefWidth="305.0" text="XOR" />
+                              <Button fx:id="buttonNAND" layoutY="248.0" mnemonicParsing="false" onAction="#createLogicGateNAND" prefHeight="63.0" prefWidth="305.0" text="NAND" />
+                              <Button fx:id="buttonNOR" layoutY="311.0" mnemonicParsing="false" onAction="#createLogicGateNOR" prefHeight="63.0" prefWidth="305.0" text="NOR" />
                               <Button fx:id="buttonXNOR" layoutY="374.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="305.0" text="XNOR" />
                            </children>
                         </AnchorPane>
@@ -49,9 +49,9 @@
          </children></VBox>
       <HBox id="transistor-top-hbox" layoutX="-2.0" prefHeight="76.0" prefWidth="1607.0">
          <children>
-            <VBox prefHeight="76.0" prefWidth="1669.0">
+            <VBox prefHeight="76.0" prefWidth="1600.0">
                <children>
-                  <MenuBar prefHeight="25.0" prefWidth="1619.0">
+                  <MenuBar prefHeight="25.0" prefWidth="1600.0">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -70,7 +70,7 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <Label text="Cool Logo and Name will go here when I come up with them">
+                  <Label stylesheets="@transistorexercise.css" text="Cool Logo and Name will go here when I come up with them">
                      <padding>
                         <Insets left="16.0" top="16.0" />
                      </padding>

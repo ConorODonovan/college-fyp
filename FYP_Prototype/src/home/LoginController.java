@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,12 @@ public class LoginController {
     private Scene scene;
     private Parent root;
     private LoginController loginController;
+
+    @FXML
+    VBox leftLogin;
+
+    @FXML
+    VBox rightRegister;
 
     @FXML
     TextField loginUsernameField;

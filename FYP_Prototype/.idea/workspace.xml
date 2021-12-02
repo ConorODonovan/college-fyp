@@ -80,7 +80,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/home" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/home/images/logicgateicons" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -88,8 +88,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Dropbox\Dropbox\College\Year 4\Final Year Project\Project\FYP_Prototype\src\home" />
       <recent name="F:\Dropbox\Dropbox\College\Year 4\Final Year Project\Project\FYP_Prototype\src\home\images\logicgateicons" />
+      <recent name="F:\Dropbox\Dropbox\College\Year 4\Final Year Project\Project\FYP_Prototype\src\home" />
       <recent name="F:\Dropbox\Dropbox\College\Year 4\Final Year Project\Project\FYP_Prototype\src" />
     </key>
   </component>
@@ -194,6 +194,9 @@
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="1302000" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
