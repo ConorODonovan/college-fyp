@@ -1,31 +1,49 @@
 #homepage-borderpane {
-    -fx-background-color: #B2DFDB;
+    -fx-background-image: url("../home/images/logicgateicons/cog_background_bw.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 1600;
+}
+
+#homepage-menu-bar {
+    -fx-background-color: #1976D2;
 }
 
 #homepage-top-hbox {
-    -fx-background-color: #0097A7;
+    -fx-background-color: #2196F3;
+    -fx-border-style: solid;
+    -fx-border-width: 0px 0px 6px 0px;
+    -fx-border-color: #FFC107;
+}
+
+#homepage-info-pane {
+    -fx-background-color: #FFC107;
+    -fx-opacity: 0.75;
 }
 
 #vbox-top-left {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
-    -fx-background-radius: 16px;
-    -fx-border-radius: 16px;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1976D2, #BBDEFB);
+    -fx-background-radius: 48px;
+    -fx-border-radius: 48px;
+}
+
+#buttonTransistorExercise {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FFC107;
+}
+
+#buttonGameEngine {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2196F3;
 }
 
 #vbox-top-right {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
-    -fx-background-radius: 16px;
-    -fx-border-radius: 16px;
-}
-
-#vbox-bottom-left {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
-    -fx-background-radius: 16px;
-    -fx-border-radius: 16px;
-}
-
-#vbox-bottom-right {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
-    -fx-background-radius: 16px;
-    -fx-border-radius: 16px;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FFC107, #FFE0B2);
+    -fx-background-radius: 48px;
+    -fx-border-radius: 48px;
 }

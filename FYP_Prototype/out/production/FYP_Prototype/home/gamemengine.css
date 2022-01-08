@@ -1,11 +1,29 @@
+#game-engine-menu-bar {
+    -fx-background-color: #1976D2;
+}
+
 #game-engine-top-hbox {
-    -fx-background-color: #0097A7;
+    -fx-background-color: #2196F3;
+    -fx-border-style: solid;
+    -fx-border-width: 0px 0px 6px 0px;
+    -fx-border-color: #FFC107;
+}
+
+#game-engine-play-button {
+    -fx-background-color: #2196F3;
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 800;
 }
 
 #game-engine-vbox-left {
-    -fx-background-color: #00BCD4;
+    -fx-background-color: #BBDEFB;
 }
 
 #game-engine-main-pane {
     -fx-background-color: linear-gradient(from 100% 0% to 100% 100%, #BBDEFB, #FFFFFF);
+    -fx-border-style: solid;
+    -fx-border-width: 0px 6px 6px 6px;
+    -fx-border-color: #FFC107;
 }

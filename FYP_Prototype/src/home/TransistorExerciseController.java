@@ -37,6 +37,7 @@ public class TransistorExerciseController {
     Button buttonXNOR;
 
     Draggable draggable = new Draggable();
+    DrawLine drawLine = new DrawLine();
 
     public TransistorExerciseController()
     {
@@ -138,5 +139,14 @@ public class TransistorExerciseController {
         transistormainpane.getChildren().add(logicGate);
         logicGate.setPickOnBounds(true);
         draggable.makeDraggable(logicGate);
+    }
+
+    // FOR TESTING - Drawing lines
+    public void createLineMaker()
+    {
+        TestLineNode testLineNode = new TestLineNode();
+        transistormainpane.getChildren().add(testLineNode);
+        testLineNode.setPickOnBounds(true);
+        drawLine.drawLine(testLineNode);
     }
 }

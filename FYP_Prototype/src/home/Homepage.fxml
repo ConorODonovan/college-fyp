@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,8 +24,8 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="375.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="760.0" minHeight="10.0" prefHeight="728.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <BorderPane.margin>
                 <Insets />
@@ -32,7 +34,7 @@
                 <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
             </padding>
             <children>
-                <VBox id="vbox-top-left" fx:id="homepageVBoxTopLeft" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                <VBox id="vbox-top-left" fx:id="homepageVBoxTopLeft" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="384.0" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets bottom="64.0" left="256.0" right="128.0" top="64.0" />
                     </GridPane.margin>
@@ -42,18 +44,18 @@
                         <Insets />
                      </VBox.margin>
                      <font>
-                        <Font name="Verdana Bold" size="24.0" />
+                        <Font name="Verdana Bold" size="28.0" />
                      </font>
                      <padding>
                         <Insets bottom="32.0" />
                      </padding></Label>
-                        <Button fx:id="transistorExercise" mnemonicParsing="false" onAction="#switchToTransistorExercise" text="Transistor Exercise">
+                        <Button id="buttonTransistorExercise" fx:id="transistorExercise" mnemonicParsing="false" onAction="#switchToTransistorExercise" text="LEARN!">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></Button>
                     </children>
                 </VBox>
-                <VBox id="vbox-top-right" fx:id="homepageVBoxTopRight" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                <VBox id="vbox-top-right" fx:id="homepageVBoxTopRight" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets bottom="64.0" left="128.0" right="256.0" top="64.0" />
                     </GridPane.margin>
@@ -63,39 +65,9 @@
                         <Insets bottom="32.0" />
                      </padding>
                      <font>
-                        <Font name="Verdana Bold" size="24.0" />
+                        <Font name="Verdana Bold" size="28.0" />
                      </font></Label>
-                        <Button fx:id="gameEngineButton" mnemonicParsing="false" onAction="#switchToGameEngine" text="Game Engine" />
-                    </children>
-                </VBox>
-                <VBox id="vbox-bottom-left" fx:id="homepageVBoxBottomLeft" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-                    <GridPane.margin>
-                        <Insets bottom="64.0" left="256.0" right="128.0" top="64.0" />
-                    </GridPane.margin>
-                    <children>
-                        <Label text="Test Label" textFill="WHITE">
-                     <padding>
-                        <Insets bottom="32.0" />
-                     </padding>
-                     <font>
-                        <Font name="Verdana Bold" size="24.0" />
-                     </font></Label>
-                        <Button mnemonicParsing="false" text="Test Button" />
-                    </children>
-                </VBox>
-                <VBox id="vbox-bottom-right" fx:id="homepageVBoxBottomRight" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <GridPane.margin>
-                        <Insets bottom="64.0" left="128.0" right="256.0" top="64.0" />
-                    </GridPane.margin>
-                    <children>
-                        <Label text="Logout" textFill="WHITE">
-                     <padding>
-                        <Insets bottom="32.0" />
-                     </padding>
-                     <font>
-                        <Font name="Verdana Bold" size="24.0" />
-                     </font></Label>
-                        <Button mnemonicParsing="false" text="Logout" />
+                        <Button id="buttonGameEngine" fx:id="gameEngineButton" mnemonicParsing="false" onAction="#switchToGameEngine" text="CREATE!" />
                     </children>
                 </VBox>
             </children>
@@ -104,9 +76,9 @@
    <top>
       <HBox id="homepage-top-hbox" prefHeight="76.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="76.0" prefWidth="1603.0">
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="1600.0">
                <children>
-                  <MenuBar>
+                  <MenuBar id="homepage-menu-bar">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -125,6 +97,14 @@
                       </Menu>
                     </menus>
                   </MenuBar>
+                  <ImageView fitHeight="85.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logicgateicons/codebug_logo.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="16.0" top="16.0" />
+                     </VBox.margin>
+                  </ImageView>
                </children>
             </VBox>
          </children>

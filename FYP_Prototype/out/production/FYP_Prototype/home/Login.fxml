@@ -8,6 +8,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -19,7 +21,7 @@
 
 <BorderPane id="login-main-borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.LoginController">
     <center>
-        <GridPane prefHeight="844.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+        <GridPane id="login-gridpane" prefHeight="844.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,22 +30,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox id="login-vbox-left" fx:id="leftLogin" alignment="TOP_CENTER" prefHeight="504.0" prefWidth="512.0" spacing="16.0" stylesheets="@login.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <VBox id="login-vbox-left" fx:id="leftLogin" alignment="TOP_CENTER" prefHeight="479.0" prefWidth="390.0" spacing="16.0" stylesheets="@login.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <children>
                         <Label id="login-label" alignment="CENTER" prefHeight="17.0" prefWidth="489.0" text="LOGIN" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets top="32.0" />
                      </VBox.margin></Label>
-                  <HBox prefHeight="46.0" prefWidth="320.0">
+                  <HBox prefHeight="46.0" prefWidth="251.0">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="73.0" text="Username" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana Bold" size="12.0" />
-                           </font>
-                        </Label>
-                              <TextField fx:id="loginUsernameField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="245.0">
+                              <TextField id="login-field" fx:id="loginUsernameField" alignment="CENTER" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="262.0" promptText="Enter Username">
                            <HBox.margin>
-                              <Insets />
+                              <Insets bottom="32.0" left="32.0" right="32.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -51,17 +48,18 @@
                         <Insets top="16.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="66.0" prefWidth="320.0">
+                  <HBox prefHeight="46.0" prefWidth="326.0">
                      <children>
-                        <Label prefHeight="26.0" prefWidth="83.0" text="Password" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana Bold" size="12.0" />
-                           </font>
-                        </Label>
-                              <PasswordField fx:id="loginPasswordField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="249.0" />
+                              <PasswordField id="password-field" fx:id="loginPasswordField" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="262.0" promptText="Enter Password">
+                           <HBox.margin>
+                              <Insets left="32.0" right="32.0" />
+                           </HBox.margin></PasswordField>
                      </children>
                   </HBox>
-                        <Button id="button-test" fx:id="loginButton" mnemonicParsing="false" onAction="#switchToHomepage" text="LOGIN" />
+                        <Button id="login-button" fx:id="loginButton" mnemonicParsing="false" onAction="#switchToHomepage" prefHeight="46.0" prefWidth="139.0" text="LOGIN">
+                     <VBox.margin>
+                        <Insets top="32.0" />
+                     </VBox.margin></Button>
                     </children>
                     <padding>
                         <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
@@ -70,10 +68,36 @@
                   <Insets bottom="128.0" left="256.0" right="128.0" top="128.0" />
                </GridPane.margin>
                 </VBox>
-                <VBox id="login-vbox-right" fx:id="rightRegister" alignment="TOP_CENTER" prefHeight="504.0" prefWidth="512.0" spacing="32.0" GridPane.columnIndex="1">
+                <VBox id="login-vbox-right" fx:id="rightRegister" alignment="TOP_CENTER" prefHeight="504.0" prefWidth="512.0" spacing="16.0" GridPane.columnIndex="1">
                     <children>
-                        <Label id="register-label" alignment="CENTER" prefHeight="70.0" prefWidth="339.0" text="REGISTER" textAlignment="CENTER" />
-                        <Button mnemonicParsing="false" text="REGISTER" />
+                        <Label id="register-label" alignment="CENTER" prefHeight="70.0" prefWidth="339.0" text="REGISTER" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets top="32.0" />
+                     </VBox.margin></Label>
+                  <TextField alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="262.0" promptText="Enter Email Address">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="262.0" promptText="Enter Username">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="262.0" promptText="Enter Password">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="32.0" prefWidth="262.0" promptText="Confirm Password">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </PasswordField>
+                        <Button id="register-button" mnemonicParsing="false" text="REGISTER">
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin></Button>
                     </children>
                <GridPane.margin>
                   <Insets bottom="128.0" left="128.0" right="256.0" top="128.0" />
@@ -92,13 +116,13 @@
         </GridPane>
     </center>
    <top>
-      <AnchorPane prefHeight="76.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="95.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutY="-1.0" prefHeight="76.0" prefWidth="1600.0">
+            <HBox id="login-top-hbox" layoutY="-1.0" prefHeight="102.0" prefWidth="1600.0" stylesheets="@login.css">
                <children>
-                  <VBox id="login-top-vbox" prefHeight="76.0" prefWidth="1600.0">
+                  <VBox id="login-top-vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="1600.0" stylesheets="@login.css">
                      <children>
-                        <MenuBar stylesheets="@login.css">
+                        <MenuBar id="login-menu-bar" stylesheets="@login.css">
                           <menus>
                             <Menu mnemonicParsing="false" text="File">
                               <items>
@@ -117,6 +141,14 @@
                             </Menu>
                           </menus>
                         </MenuBar>
+                        <ImageView fitHeight="62.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/logicgateicons/codebug_logo.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="16.0" top="16.0" />
+                           </VBox.margin>
+                        </ImageView>
                      </children>
                   </VBox>
                </children>

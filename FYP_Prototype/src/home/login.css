@@ -1,5 +1,24 @@
 #login-main-borderpane {
-    -fx-background-color: #B2DFDB;
+    -fx-background-image: url("../home/images/logicgateicons/cog_background_bw.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 1600;
+}
+
+#login-menu-bar {
+    -fx-background-color: #1976D2;
+}
+
+#login-top-vbox {
+    -fx-background-color: #2196F3;
+    -fx-border-style: solid;
+    -fx-border-width: 0px 0px 6px 0px;
+    -fx-border-color: #FFC107;
+}
+
+#login-vbox-left {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1976D2, #BBDEFB);
+    -fx-background-radius: 48px;
+    -fx-border-radius: 48px;
 }
 
 #login-label {
@@ -9,6 +28,34 @@
     -fx-font-weight: 800;
 }
 
+#login-field {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 24px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+#password-field {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 24px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+#login-button {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FFC107;
+}
+
+#login-vbox-right {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FFC107, #FFE0B2);
+    -fx-background-radius: 48px;
+    -fx-border-radius: 48px;
+}
+
 #register-label {
     -fx-font-family: Helvetica;
     -fx-font-size: 48px;
@@ -16,18 +63,10 @@
     -fx-font-weight: 800;
 }
 
-#login-top-vbox {
-   -fx-background-color: #0097A7;
-}
-
-#login-vbox-left {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
-    -fx-background-radius: 16px;
-    -fx-border-radius: 16px;
-}
-
-#login-vbox-right {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0097A7, #00BCD4);
-    -fx-background-radius: 16px;
-    -fx-border-radius: 16px;
+#register-button {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2196F3;
 }

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -19,12 +17,13 @@
          <children>
             <Accordion>
               <panes>
-                <TitledPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="128.0" prefWidth="305.0" text="Transistors">
+                <TitledPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="472.0" prefWidth="305.0" text="Transistors">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="101.0" prefWidth="303.0">
                            <children>
                               <Button fx:id="transistorOnButton" layoutX="-1.0" mnemonicParsing="false" onAction="#createTransistorOn" prefHeight="51.0" prefWidth="305.0" text="Transistor - On" />
                               <Button fx:id="transistorOffButton" layoutX="-1.0" layoutY="51.0" mnemonicParsing="false" onAction="#createTransistorOff" prefHeight="51.0" prefWidth="305.0" text="Transistor - Off" />
+                              <Button fx:id="lineMaker" layoutX="-1.0" layoutY="102.0" mnemonicParsing="false" onAction="#createLineMaker" prefHeight="51.0" prefWidth="305.0" text="TEST - Line Maker" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -51,7 +50,7 @@
          <children>
             <VBox prefHeight="76.0" prefWidth="1600.0">
                <children>
-                  <MenuBar prefHeight="25.0" prefWidth="1600.0">
+                  <MenuBar id="transistor-exercise-menu-bar" prefHeight="25.0" prefWidth="1600.0">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -70,14 +69,9 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <Label stylesheets="@transistorexercise.css" text="Cool Logo and Name will go here when I come up with them">
-                     <padding>
-                        <Insets left="16.0" top="16.0" />
-                     </padding>
-                  </Label>
                </children>
             </VBox>
          </children></HBox>
-      <Pane fx:id="transistormainpane" layoutX="303.0" layoutY="76.0" prefHeight="826.0" prefWidth="1034.0" />
+      <Pane id="transistor-exercise-main-pane" fx:id="transistormainpane" layoutX="303.0" layoutY="76.0" prefHeight="826.0" prefWidth="1034.0" />
    </children>
 </AnchorPane>

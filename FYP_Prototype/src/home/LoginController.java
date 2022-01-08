@@ -38,7 +38,7 @@ public class LoginController {
     SceneController homepage = new SceneController();
 
     public boolean loginCheck() {
-        return loginUsernameField.getText().equals("test") && loginPasswordField.getText().equals("test");
+        return loginUsernameField.getText().equals("Conor") && loginPasswordField.getText().equals("password");
     }
 
     @FXML
