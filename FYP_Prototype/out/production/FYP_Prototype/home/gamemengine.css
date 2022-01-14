@@ -27,3 +27,19 @@
     -fx-border-width: 0px 6px 6px 6px;
     -fx-border-color: #FFC107;
 }
+
+#button-logout {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #999999;
+}
+
+#button-logout:hover {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FFC107;
+}

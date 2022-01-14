@@ -31,6 +31,14 @@
     -fx-font-size: 20px;
     -fx-font-weight: 800;
     -fx-text-fill: #FFFFFF;
+    -fx-background-color: #999999;
+}
+
+#buttonTransistorExercise:hover {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
     -fx-background-color: #FFC107;
 }
 
@@ -39,7 +47,31 @@
     -fx-font-size: 20px;
     -fx-font-weight: 800;
     -fx-text-fill: #FFFFFF;
+    -fx-background-color: #999999;
+}
+
+#buttonGameEngine:hover {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
     -fx-background-color: #2196F3;
+}
+
+#button-logout {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #999999;
+}
+
+#button-logout:hover {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FFC107;
 }
 
 #vbox-top-right {

@@ -47,6 +47,14 @@
     -fx-font-size: 20px;
     -fx-font-weight: 800;
     -fx-text-fill: #FFFFFF;
+    -fx-background-color: #999999;
+}
+
+#login-button:hover {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
     -fx-background-color: #FFC107;
 }
 
@@ -64,6 +72,14 @@
 }
 
 #register-button {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #999999;
+}
+
+#register-button:hover {
     -fx-font-family: Helvetica;
     -fx-font-size: 20px;
     -fx-font-weight: 800;

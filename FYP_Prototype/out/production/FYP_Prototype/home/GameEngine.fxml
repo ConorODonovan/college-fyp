@@ -12,6 +12,8 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -28,7 +30,9 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Close" />
+                              <MenuItem mnemonicParsing="false" text="New..." />
+                              <MenuItem mnemonicParsing="false" text="Open..." />
+                          <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#exitApplication" text="Exit..." />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edit">
@@ -43,10 +47,31 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <Button id="game-engine-play-button" fx:id="playButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeGameState" prefHeight="42.0" prefWidth="209.0" text="PLAY!" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Verdana Bold" size="14.0" />
-                     </font></Button>
+                  <HBox maxHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1600.0">
+                     <children>
+                        <ImageView fitHeight="48.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Resources/Images/codebug_logo.png" />
+                           </image>
+                        </ImageView>
+                        <Button id="game-engine-play-button" fx:id="playButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeGameState" prefHeight="42.0" prefWidth="205.0" text="PLAY!" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="512.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="button-logout" fx:id="buttonLogout" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" text="Logout">
+                           <HBox.margin>
+                              <Insets left="540.0" top="4.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="4.0" left="8.0" right="8.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
@@ -63,8 +88,8 @@
                                  <children>
                                     <VBox layoutX="-1.0" prefHeight="746.0" prefWidth="325.0">
                                        <children>
-                                          <Button fx:id="createTestShape1" mnemonicParsing="false" onAction="#createTestShape" prefHeight="36.0" prefWidth="325.0" text="Create Test Shape" />
-                                          <Button fx:id="createTestShape2" mnemonicParsing="false" onAction="#createTestShape2" prefHeight="36.0" prefWidth="325.0" text="Create Test Shape 2" />
+                                          <Button fx:id="createPlayerButton" mnemonicParsing="false" onAction="#createPlayer" prefHeight="36.0" prefWidth="325.0" text="Create Player" />
+                                          <Button fx:id="createWallButton" mnemonicParsing="false" onAction="#createWall" prefHeight="36.0" prefWidth="325.0" text="Create Wall" />
                                        </children>
                                     </VBox>
                                  </children>

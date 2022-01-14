@@ -1,5 +1,6 @@
 package home;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,6 +21,9 @@ public class LoginController {
     private Scene scene;
     private Parent root;
     private LoginController loginController;
+
+    @FXML
+    MenuItem menuItemExit;
 
     @FXML
     VBox leftLogin;
@@ -36,6 +41,11 @@ public class LoginController {
     Button loginButton;
 
     SceneController homepage = new SceneController();
+
+    @FXML
+    public void exitApplication() {
+        Platform.exit();
+    }
 
     public boolean loginCheck() {
         return loginUsernameField.getText().equals("Conor") && loginPasswordField.getText().equals("password");

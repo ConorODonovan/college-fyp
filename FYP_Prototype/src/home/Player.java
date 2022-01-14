@@ -1,10 +1,19 @@
 package home;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GameObject extends Rectangle {
+public class Player extends Rectangle {
 
+    private Point2D playerSpeed = new Point2D(0, 0);
+    private boolean canJump = true;
+
+    private double x;
+    private double y;
+    private double width;
+    private double height;
     private double gravity;
     private double speed;
     private String moveLeft;
@@ -13,17 +22,12 @@ public class GameObject extends Rectangle {
     private String moveDown;
     private String jump;
     private double jumpHeight;
-    private double x;
-    private double y;
-    private double width;
-    private double height;
     private Color color;
 
     // Constructor
-    GameObject(double x, double y, double width, double height, double gravity, double speed, String moveLeft, String moveRight, String moveUp, String moveDown, String jump, double jumpHeight, Color color) {
+    Player(double x, double y, double width, double height, double gravity, double speed, String moveLeft, String moveRight, String moveUp, String moveDown, String jump, double jumpHeight, Color color) {
 
-        super(x, y, height, width);
-
+        super(x, y, width, height);
         this.x = x;
         this.y = y;
         this.width = width;
@@ -39,12 +43,11 @@ public class GameObject extends Rectangle {
         this.color = color;
     }
 
-    GameObject getSelected() {
+    Player getSelected() {
         return this;
     }
 
     // Getters and setters
-
     double getGravity() {
         return gravity;
     }
@@ -61,35 +64,35 @@ public class GameObject extends Rectangle {
         this.speed = newSpeed;
     }
 
-    public String getMoveLeft() {
+    String getMoveLeft() {
         return moveLeft;
     }
 
-    public void setMoveLeft(String newMoveLeft) {
+    void setMoveLeft(String newMoveLeft) {
         this.moveLeft = newMoveLeft;
     }
 
-    public String getMoveRight() {
+    String getMoveRight() {
         return moveRight;
     }
 
-    public void setMoveRight(String newMoveRight) {
+    void setMoveRight(String newMoveRight) {
         this.moveRight = newMoveRight;
     }
 
-    public String getMoveUp() {
+    String getMoveUp() {
         return moveUp;
     }
 
-    public void setMoveUp(String newMoveUp) {
+    void setMoveUp(String newMoveUp) {
         this.moveUp = newMoveUp;
     }
 
-    public String getMoveDown() {
+    String getMoveDown() {
         return moveDown;
     }
 
-    public void setMoveDown(String newMoveDown) {
+    void setMoveDown(String newMoveDown) {
         this.moveDown = newMoveDown;
     }
 
@@ -115,6 +118,5 @@ public class GameObject extends Rectangle {
 
     void setColor(Color newColor) {
         this.color = newColor;
-        this.setFill(color);
     }
 }

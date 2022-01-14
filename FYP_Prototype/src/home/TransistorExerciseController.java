@@ -1,19 +1,36 @@
 package home;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TransistorExerciseController {
 
+    private Stage stage;
+    private Scene login;
+
     @FXML
     Pane transistormainpane;
+
+    @FXML
+    Button buttonLogout;
+
+    @FXML
+    MenuItem menuItemExit;
 
     @FXML
     Button transistorOnButton;
@@ -42,6 +59,11 @@ public class TransistorExerciseController {
     public TransistorExerciseController()
     {
 
+    }
+
+    @FXML
+    public void exitApplication() {
+        Platform.exit();
     }
 
     @FXML
@@ -139,6 +161,15 @@ public class TransistorExerciseController {
         transistormainpane.getChildren().add(logicGate);
         logicGate.setPickOnBounds(true);
         draggable.makeDraggable(logicGate);
+    }
+
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/home/Login.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        login = new Scene(root, 1600, 900);
+        stage.setScene(login);
+        stage.show();
     }
 
     // FOR TESTING - Drawing lines

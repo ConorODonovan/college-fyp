@@ -1,9 +1,16 @@
 package home;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -13,17 +20,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import java.io.FileNotFoundException;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameEngineController {
 
-    private HashMap<KeyCode, Boolean> keys = new HashMap<KeyCode, Boolean>();
+    private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
     private boolean gameState = false;
-    private GameObject currentlySelected = null;
+    private Node currentlySelected = null;
     private boolean objectSelected = false;
     private boolean cannotUnselect = false;
 
@@ -36,15 +46,27 @@ public class GameEngineController {
     private ImageView viewStop = new ImageView(buttonStop);
 
     @FXML
+    Button buttonLogout;
+
+    private Stage stage;
+    private Scene login;
+
+    @FXML
     AnchorPane gameEngine;
     @FXML
     Pane gameWindow;
     @FXML
+    VBox objectPropertiesPane;
+    @FXML
+    MenuItem menuItemExit;
+    @FXML
     Button playButton;
     @FXML
     Label isObjectSelectedLabel;
-
-    // Object property controls
+    @FXML
+    Button createPlayerButton;
+    @FXML
+    Button createWallButton;
     @FXML
     Slider gravitySlider;
     @FXML
@@ -73,16 +95,22 @@ public class GameEngineController {
     Button savePropertiesButton;
 
     private Draggable draggable = new Draggable();
+    private ArrayList<Wall> platforms = new ArrayList<Wall>();
+    private GameObject player;
+    private Wall wall;
+    private Point2D playerVelocity = new Point2D(0, 0);
+    private boolean canJump = true;
 
-    @FXML
-    VBox objectPropertiesPane;
+    // List of game objects
+    private List<Node> allObjects() {
+        return gameWindow.getChildren().stream().map(n -> (Node)n).collect(Collectors.toList());
+    }
 
     public GameEngineController() {
     }
 
     @FXML
     private void initialize() {
-
         System.out.println("This is initialized!");
         playButton.setGraphic(viewPlay);
         playButton.setText("PLAY!");
@@ -94,15 +122,8 @@ public class GameEngineController {
         unselectObject();
     }
 
-    // List of game objects
-    private List<GameObject> gameObjects() {
-
-        return gameWindow.getChildren().stream().map(n -> (GameObject)n).collect(Collectors.toList());
-    }
-
     @FXML
     public void changeGameState() {
-
         if (gameState) {
             gameState = false;
             playButton.setGraphic(viewPlay);
@@ -119,8 +140,12 @@ public class GameEngineController {
     }
 
     @FXML
-    public void unselectObject() {
+    public void exitApplication() {
+        Platform.exit();
+    }
 
+    @FXML
+    public void unselectObject() {
         gameWindow.setPickOnBounds(false);
 
         if (!cannotUnselect) {
@@ -134,58 +159,80 @@ public class GameEngineController {
 
         gameWindow.requestFocus();
 
-        // Movement methods for game objects
-        gameObjects().forEach(s -> {
-
+        allObjects().forEach(s -> {
             s.setOnMouseEntered(e -> cannotUnselect = true);
-
             s.setOnMouseExited(e -> cannotUnselect = false);
-
-            collisionCheck();
-
-            if (isPressed(getKeyLeft(s.getMoveLeft()))) {
-                if (s.getCanMoveLeft()) {
-                    s.moveLeft(s.getSpeed());
-                }
-                else {
-                    s.moveLeft(0);
-                }
-            }
-
-            if (isPressed(getKeyRight(s.getMoveRight()))) {
-                if (s.getCanMoveRight()) {
-                    s.moveRight(s.getSpeed());
-                }
-                else {
-                    s.moveRight(0);
-                }
-            }
-
-            if (isPressed(getKeyUp(s.getMoveUp()))) {
-                if (s.getCanMoveUp()) {
-                    s.moveUp(s.getSpeed());
-                }
-                else {
-                    s.moveUp(0);
-                }
-            }
-
-            if (isPressed(getKeyDown(s.getMoveDown()))) {
-                if (s.getCanMoveDown()) {
-                    s.moveDown(s.getSpeed());
-                }
-                else {
-                    s.moveDown(0);
-                }
-            }
-
-            // Jump testing - needs work
-            if (isPressed(getKeyJump(s.getJump()))) {
-                s.jump();
-            }
-
-            s.fall();
         });
+
+        // Testing new collision
+        if (isPressed(getKeyJump(jumpInputChoiceBox.getValue())) && player.getTranslateY() >= jumpHeightSlider.getValue()) {
+            jumpPlayer();
+        }
+
+        if (isPressed(getKeyLeft(player.getMoveLeft()))) {
+            movePlayerX(-((int) player.getSpeed()));
+        }
+
+        if (isPressed(getKeyRight(rightInputChoiceBox.getValue()))) {
+            movePlayerX((int) player.getSpeed());
+        }
+
+        if (playerVelocity.getY() < player.getGravity()) {
+            playerVelocity = playerVelocity.add(0, player.getGravity());
+        }
+
+        movePlayerY((int)playerVelocity.getY());
+    }
+
+    private void movePlayerX(int value) {
+        boolean movingRight = value > 0;
+
+        for (int i = 0; i < Math.abs(value); i++) {
+            for (Node platform: platforms) {
+                if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+                    if (movingRight) {
+                        if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
+                            return;
+                        }
+                    } else {
+                        if (player.getTranslateX() == platform.getTranslateX() + wall.getWidth()) {
+                            return;
+                        }
+                    }
+                }
+            }
+            player.setTranslateX(player.getTranslateX() + (movingRight ? 1 : -1));
+        }
+    }
+
+    private void movePlayerY(int value) {
+        boolean movingDown = value > 0;
+
+        for (int i = 0; i < Math.abs(value); i++) {
+            for (Node platform : platforms) {
+                if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
+                    if (movingDown) {
+                        if (player.getTranslateY() + player.getWidth() == platform.getTranslateY()) {
+                            player.setTranslateY(player.getTranslateY() - 1);
+                            canJump = true;
+                            return;
+                        }
+                    } else {
+                        if (player.getTranslateY() == platform.getTranslateY() + wall.getWidth()) {
+                            return;
+                        }
+                    }
+                }
+            }
+            player.setTranslateY(player.getTranslateY() + (movingDown ? 1 : -1));
+        }
+    }
+
+    private void jumpPlayer() {
+        if (canJump) {
+            playerVelocity = playerVelocity.add(0, -player.getJumpHeight());
+            canJump = false;
+        }
     }
 
     private AnimationTimer a = new AnimationTimer() {
@@ -198,82 +245,22 @@ public class GameEngineController {
         }
     };
 
-    // This kind of works, but is extremely buggy
-    private void collisionCheck() {
-        gameObjects().forEach(s -> {
+    @FXML
+    public void createPlayer() {
+        player = new GameObject(200.0, 200.0, 100.0, 100.0, 0.0, 0.0, "None", "None", "None", "None", "None", 0.0, Color.BLUE);
+        player.setFill(Color.GREEN);
+        player.setStroke(Color.BLACK);
+        draggable.makeDraggable(player);
+        gameWindow.getChildren().add(player);
 
-            gameObjects().forEach(t -> {
-                // Collision checking
-                if (s.getName().equals("Obj1") && t.getName().equals("Obj2") && s.getBoundsInParent().intersects(t.getBoundsInParent())) {
+        player.setOnMouseEntered(e -> cannotUnselect = true);
+        player.setOnMouseExited(e -> cannotUnselect = false);
 
-                    System.out.println("Collision!");
-
-                    // Left
-                    if (isPressed(getKeyLeft(s.getMoveLeft()))) {
-                        if (s.getTranslateX() <= t.getTranslateX() + t.getWidth()) {
-                            s.setCanMoveLeft(false);
-                            s.setTranslateX(t.getTranslateX() + t.getWidth() + s.getSpeed());
-                        } else {
-                            s.setCanMoveLeft(true);
-                        }
-                    }
-
-                    // Right
-                    if (isPressed(getKeyRight(s.getMoveRight()))) {
-                        if (s.getTranslateX() + s.getWidth() >= t.getTranslateX()) {
-                            s.setCanMoveRight(false);
-                            s.setTranslateX(s.getTranslateX() - s.getSpeed());
-                        } else {
-                            s.setCanMoveRight(true);
-                        }
-                    }
-
-                    // Up
-                    if (isPressed(getKeyUp(s.getMoveUp()))) {
-                        if (s.getTranslateY() <= t.getTranslateY() + t.getHeight()) {
-                            s.setCanMoveUp(false);
-                            s.setTranslateY(s.getTranslateY() + s.getSpeed());
-                        } else {
-                            s.setCanMoveUp(true);
-                        }
-                    }
-
-                    // Down
-                    if (isPressed(getKeyDown(s.getMoveDown()))) {
-                        if (s.getTranslateY() + s.getHeight() >= t.getTranslateY()) {
-                            s.setCanMoveDown(false);
-                            s.setTranslateY(s.getTranslateY() - s.getSpeed());
-                        } else {
-                            s.setCanMoveDown(true);
-                        }
-                    }
-                } else {
-                    s.setCanMoveLeft(true);
-                    s.setCanMoveRight(true);
-                    s.setCanMoveUp(true);
-                    s.setCanMoveDown(true);
-                }
-            });
-        });
-    }
-
-    public void createTestShape() throws FileNotFoundException {
-
-        GameObject testObject = new GameObject(200.0, 200.0, 100.0, 100.0, 0.0, 0.0, "None", "None", "None", "None", "None", 0.0, false, Color.RED, "Obj1");
-        draggable.makeDraggable(testObject);
-        testObject.setFill(colorPicker.getValue());
-        testObject.setStroke(Color.BLACK);
-        gameWindow.getChildren().add(testObject);
-
-        testObject.setOnMouseEntered(e -> cannotUnselect = true);
-
-        testObject.setOnMouseExited(e -> cannotUnselect = false);
-
-        testObject.setOnMouseClicked(e -> {
+        player.setOnMouseClicked(e -> {
             objectSelected = true;
-            currentlySelected = testObject.getSelected(); // Click on game object to select it
+            currentlySelected = player.getSelected();
 
-            gameObjects().forEach(s -> {
+            allObjects().forEach(s -> {
                 if (s == currentlySelected) {
                     DropShadow borderGlow = new DropShadow();
                     borderGlow.setOffsetY(0f);
@@ -288,37 +275,29 @@ public class GameEngineController {
                 }
             });
 
-            DropShadow borderGlow = new DropShadow();
-            borderGlow.setOffsetY(0f);
-            borderGlow.setOffsetX(0f);
-            borderGlow.setColor(Color.RED);
-            borderGlow.setWidth(60);
-            borderGlow.setHeight(60);
-            currentlySelected.setEffect(borderGlow);
-
             updateObjectProperties();
-            getObjectProperties(testObject);
+            getObjectProperties(currentlySelected);
             System.out.println("Current Object Selected: " + currentlySelected); // For testing
         });
     }
 
-    public void createTestShape2() throws FileNotFoundException {
+    @FXML
+    public void createWall() {
+        wall = new Wall(200.0, 200.0, 100.0, 100.0, Color.GREY);
+        draggable.makeDraggable(wall);
+        wall.setFill(Color.GREY);
+        wall.setStroke(Color.BLACK);
+        gameWindow.getChildren().add(wall);
+        platforms.add(wall);
 
-        GameObject testObject2 = new GameObject(200.0, 200.0, 100.0, 100.0, 0.0, 0.0, "None", "None", "None", "None", "None", 0.0, false, Color.GREEN, "Obj2");
-        draggable.makeDraggable(testObject2);
-        testObject2.setFill(Color.GREEN);
-        testObject2.setStroke(Color.BLACK);
-        gameWindow.getChildren().add(testObject2);
+        wall.setOnMouseEntered(e -> cannotUnselect = true);
+        wall.setOnMouseExited(e -> cannotUnselect = false);
 
-        testObject2.setOnMouseEntered(e -> cannotUnselect = true);
-
-        testObject2.setOnMouseExited(e -> cannotUnselect = false);
-
-        testObject2.setOnMouseClicked(e -> {
+        wall.setOnMouseClicked(e -> {
             objectSelected = true;
-            currentlySelected = testObject2.getSelected(); // Click on game object to select it
+            currentlySelected = wall.getSelected();
 
-            gameObjects().forEach(s -> {
+            allObjects().forEach(s -> {
                 if (s == currentlySelected) {
                     DropShadow borderGlow = new DropShadow();
                     borderGlow.setOffsetY(0f);
@@ -334,8 +313,8 @@ public class GameEngineController {
             });
 
             updateObjectProperties();
-            getObjectProperties(testObject2);
-            System.out.println("Current Object Selected: " + currentlySelected + currentlySelected.getName()); // For testing
+            getObjectProperties(currentlySelected);
+            System.out.println("Current Object Selected: " + currentlySelected); // For testing
         });
     }
 
@@ -347,9 +326,9 @@ public class GameEngineController {
             isObjectSelectedLabel.setText("Please select an object");
 
             gravitySlider.setDisable(true);
-            gravitySlider.setValue(0.0);
+            gravitySlider.setValue(0);
             speedSlider.setDisable(true);
-            speedSlider.setValue(0.0);
+            speedSlider.setValue(0);
             leftInputChoiceBox.setDisable(true);
             leftInputChoiceBox.setValue("None");
             rightInputChoiceBox.setDisable(true);
@@ -361,7 +340,7 @@ public class GameEngineController {
             jumpInputChoiceBox.setDisable(true);
             jumpInputChoiceBox.setValue("None");
             jumpHeightSlider.setDisable(true);
-            jumpHeightSlider.setValue(0.0);
+            jumpHeightSlider.setValue(0);
             solidCheckBox.setDisable(true);
             solidCheckBox.setSelected(false);
             widthSlider.setDisable(true);
@@ -374,19 +353,47 @@ public class GameEngineController {
         } else {
             isObjectSelectedLabel.setText("Object selected!");
 
-            gravitySlider.setDisable(false);
-            speedSlider.setDisable(false);
-            leftInputChoiceBox.setDisable(false);
-            rightInputChoiceBox.setDisable(false);
-            upInputChoiceBox.setDisable(false);
-            downInputChoiceBox.setDisable(false);
-            jumpInputChoiceBox.setDisable(false);
-            jumpHeightSlider.setDisable(false);
-            solidCheckBox.setDisable(false);
-            widthSlider.setDisable(false);
-            heightSlider.setDisable(false);
-            colorPicker.setDisable(false);
-            savePropertiesButton.setDisable(false);
+            if (currentlySelected.getClass() == GameObject.class) {
+
+                gravitySlider.setDisable(false);
+                speedSlider.setDisable(false);
+                leftInputChoiceBox.setDisable(false);
+                rightInputChoiceBox.setDisable(false);
+                upInputChoiceBox.setDisable(false);
+                downInputChoiceBox.setDisable(false);
+                jumpInputChoiceBox.setDisable(false);
+                jumpHeightSlider.setDisable(false);
+                solidCheckBox.setDisable(false);
+                widthSlider.setDisable(false);
+                heightSlider.setDisable(false);
+                colorPicker.setDisable(false);
+                savePropertiesButton.setDisable(false);
+
+            } else if (currentlySelected.getClass() == Wall.class) {
+
+                gravitySlider.setDisable(true);
+                gravitySlider.setValue(0);
+                speedSlider.setDisable(true);
+                speedSlider.setValue(0);
+                leftInputChoiceBox.setDisable(true);
+                leftInputChoiceBox.setValue("None");
+                rightInputChoiceBox.setDisable(true);
+                rightInputChoiceBox.setValue("None");
+                upInputChoiceBox.setDisable(true);
+                upInputChoiceBox.setValue("None");
+                downInputChoiceBox.setDisable(true);
+                downInputChoiceBox.setValue("None");
+                jumpInputChoiceBox.setDisable(true);
+                jumpInputChoiceBox.setValue("None");
+                jumpHeightSlider.setDisable(true);
+                jumpHeightSlider.setValue(0);
+                solidCheckBox.setDisable(true);
+                solidCheckBox.setSelected(false);
+                widthSlider.setDisable(false);
+                heightSlider.setDisable(false);
+                colorPicker.setDisable(false);
+                savePropertiesButton.setDisable(false);
+            }
 
             System.out.println("objectSelected = " + objectSelected); // For testing
         }
@@ -394,73 +401,79 @@ public class GameEngineController {
 
     // Get object properties
     @FXML
-    public void getObjectProperties(GameObject gameObject) {
+    private void getObjectProperties(Node currentlySelected) {
+        if (currentlySelected.getClass() == GameObject.class) {
 
-        // Gravity Slider
-        double gravity = gameObject.getGravity();
-        gravitySlider.setValue(gravity);
+            double gravity = player.getGravity();
+            gravitySlider.setValue(gravity);
 
-        // Speed Slider
-        double speed = gameObject.getSpeed();
-        speedSlider.setValue(speed);
+            double speed = player.getSpeed();
+            speedSlider.setValue(speed);
 
-        // Move Left ChoiceBox
-        String leftInput = gameObject.getMoveLeft();
-        leftInputChoiceBox.setValue(leftInput);
+            String moveLeft = player.getMoveLeft();
+            leftInputChoiceBox.setValue(moveLeft);
 
-        // Move Right ChoiceBox
-        String rightInput = gameObject.getMoveRight();
-        rightInputChoiceBox.setValue(rightInput);
+            String moveRight = player.getMoveRight();
+            rightInputChoiceBox.setValue(moveRight);
 
-        // Move Up ChoiceBox
-        String upInput = gameObject.getMoveUp();
-        upInputChoiceBox.setValue(upInput);
+            String moveUp = player.getMoveUp();
+            upInputChoiceBox.setValue(moveUp);
 
-        // Move Down ChoiceBox
-        String downInput = gameObject.getMoveDown();
-        downInputChoiceBox.setValue(downInput);
+            String moveDown = player.getMoveDown();
+            downInputChoiceBox.setValue(moveDown);
 
-        // Jump ChoiceBox
-        String jumpInput = gameObject.getJump();
-        jumpInputChoiceBox.setValue(jumpInput);
+            String jumpKey = player.getJump();
+            jumpInputChoiceBox.setValue(jumpKey);
 
-        // Jump Height Slider
-        double jumpHeight = gameObject.getJumpHeight();
-        jumpHeightSlider.setValue(jumpHeight);
+            double jumpHeight = player.getJumpHeight();
+            jumpHeightSlider.setValue(jumpHeight);
 
-        // Solid CheckBox
-        boolean isSolid = gameObject.getSolid();
-        solidCheckBox.setSelected(isSolid);
+            double width = player.getWidth();
+            widthSlider.setValue(width / 100);
 
-        // Object width
-        double objectWidth = gameObject.getWidth();
-        widthSlider.setValue(objectWidth/100);
+            double height = player.getHeight();
+            heightSlider.setValue(height / 100);
 
-        // Object height
-        double objectHeight = gameObject.getHeight();
-        heightSlider.setValue(objectHeight/100);
+            Color color = player.getColor();
+            colorPicker.setValue(color);
 
-        // Colour Picker
-        Color color = gameObject.getColor();
-        colorPicker.setValue(color);
+        } else if (currentlySelected.getClass() == Wall.class) {
+
+            double width = wall.getWidth();
+            widthSlider.setValue(width / 100);
+
+            double height = wall.getHeight();
+            heightSlider.setValue(height / 100);
+
+            Color color = wall.getColor();
+            colorPicker.setValue(color);
+        }
     }
 
     @FXML
-    public void setObjectProperties(GameObject gameObject) {
-
+    private void setObjectProperties(Node currentlySelected) {
         if (currentlySelected.getClass() == GameObject.class) {
-            System.out.println("Saving for" + gameObject);
-            gameObject.setGravity(gravitySlider.getValue());
-            gameObject.setSpeed(speedSlider.getValue());
-            gameObject.setMoveLeft(leftInputChoiceBox.getValue());
-            gameObject.setMoveRight(rightInputChoiceBox.getValue());
-            gameObject.setMoveUp(upInputChoiceBox.getValue());
-            gameObject.setMoveDown(downInputChoiceBox.getValue());
-            gameObject.setJump(jumpInputChoiceBox.getValue());
-            gameObject.setSolid(solidCheckBox.isSelected());
-            gameObject.setWidth(widthSlider.getValue() * 100);
-            gameObject.setHeight(heightSlider.getValue() * 100);
-            gameObject.setColor(colorPicker.getValue());
+
+            System.out.println("Saving for" + currentlySelected);
+            player.setGravity(gravitySlider.getValue());
+            player.setSpeed(speedSlider.getValue());
+            player.setMoveLeft(leftInputChoiceBox.getValue());
+            player.setMoveRight(rightInputChoiceBox.getValue());
+            player.setMoveUp(upInputChoiceBox.getValue());
+            player.setMoveDown(downInputChoiceBox.getValue());
+            player.setJump(jumpInputChoiceBox.getValue());
+            player.setJumpHeight(jumpHeightSlider.getValue());
+            player.setWidth(widthSlider.getValue() * 100);
+            player.setHeight(heightSlider.getValue() * 100);
+            player.setColor(colorPicker.getValue());
+
+        } else {
+
+            if (currentlySelected.getClass() == Wall.class) {
+                wall.setWidth(widthSlider.getValue() * 100);
+                wall.setHeight(heightSlider.getValue() * 100);
+                wall.setColor(colorPicker.getValue());
+            }
         }
     }
 
@@ -470,7 +483,7 @@ public class GameEngineController {
     }
 
     @FXML
-    public KeyCode getKeyCode(String s) {
+    private KeyCode getKeyCode(String s) {
         KeyCode key = null;
 
         switch(s) {
@@ -505,13 +518,13 @@ public class GameEngineController {
         return key;
     }
 
-    public KeyCode getKeyLeft(String s) {
+    private KeyCode getKeyLeft(String s) {
         KeyCode leftInput;
         leftInput = getKeyCode(s);
         return leftInput;
     }
 
-    public KeyCode getKeyRight(String s) {
+    private KeyCode getKeyRight(String s) {
         KeyCode rightInput;
         rightInput = getKeyCode(s);
         return rightInput;
@@ -529,7 +542,7 @@ public class GameEngineController {
         return downInput;
     }
 
-    public KeyCode getKeyJump(String s) {
+    private KeyCode getKeyJump(String s) {
         KeyCode jumpInput;
         jumpInput = getKeyCode(s);
         return jumpInput;
@@ -537,5 +550,14 @@ public class GameEngineController {
 
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
+    }
+
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/home/Login.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        login = new Scene(root, 1600, 900);
+        stage.setScene(login);
+        stage.show();
     }
 }
