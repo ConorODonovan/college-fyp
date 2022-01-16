@@ -32,6 +32,8 @@
                         <items>
                               <MenuItem mnemonicParsing="false" text="New..." />
                               <MenuItem mnemonicParsing="false" text="Open..." />
+                              <MenuItem mnemonicParsing="false" text="Save..." />
+                              <MenuItem mnemonicParsing="false" text="Save As..." />
                           <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#exitApplication" text="Exit..." />
                         </items>
                       </Menu>
@@ -49,9 +51,9 @@
                   </MenuBar>
                   <HBox maxHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1600.0">
                      <children>
-                        <ImageView fitHeight="48.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="42.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Resources/Images/codebug_logo.png" />
+                              <Image url="@images/logicgateicons/codebug_logo.png" />
                            </image>
                         </ImageView>
                         <Button id="game-engine-play-button" fx:id="playButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeGameState" prefHeight="42.0" prefWidth="205.0" text="PLAY!" textAlignment="CENTER" textFill="WHITE">
@@ -59,12 +61,20 @@
                               <Font name="Verdana Bold" size="14.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="512.0" />
+                              <Insets left="400.0" />
                            </HBox.margin>
+                        </Button>
+                        <Button id="button-clear-screen" fx:id="buttonReset" maxHeight="36.0" minHeight="36.0" mnemonicParsing="false" onAction="#reset" prefHeight="36.0" prefWidth="197.0" text="Clear Screen">
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" />
+                           </padding>
                         </Button>
                         <Button id="button-logout" fx:id="buttonLogout" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" text="Logout">
                            <HBox.margin>
-                              <Insets left="540.0" top="4.0" />
+                              <Insets left="480.0" top="4.0" />
                            </HBox.margin>
                            <padding>
                               <Insets bottom="4.0" left="8.0" right="8.0" />
@@ -213,6 +223,6 @@
                </children>
             </AnchorPane>
          </children></VBox>
-      <Pane id="game-engine-main-pane" fx:id="gameWindow" layoutX="325.0" layoutY="76.0" onMouseClicked="#unselectObject" prefHeight="825.0" prefWidth="1276.0" />
+      <Pane id="game-engine-main-pane" fx:id="gameWindow" layoutX="325.0" layoutY="76.0" onMouseClicked="#unselectObject" prefHeight="825.0" prefWidth="1275.0" />
    </children>
 </AnchorPane>

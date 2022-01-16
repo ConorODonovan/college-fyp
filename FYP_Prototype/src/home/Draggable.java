@@ -2,13 +2,12 @@ package home;
 
 import javafx.scene.Node;
 
-public class Draggable {
+class Draggable {
 
     private double startX;
     private double startY;
 
-    public void makeDraggable(Node node)
-    {
+    void makeDraggable(Node node) {
         node.setOnMousePressed(mouseEvent -> {
             startX = mouseEvent.getSceneX() - node.getTranslateX();
             startY = mouseEvent.getSceneY() - node.getTranslateY();

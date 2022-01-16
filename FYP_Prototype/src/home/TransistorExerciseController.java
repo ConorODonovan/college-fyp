@@ -9,13 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class TransistorExerciseController {
@@ -54,7 +49,6 @@ public class TransistorExerciseController {
     Button buttonXNOR;
 
     Draggable draggable = new Draggable();
-    DrawLine drawLine = new DrawLine();
 
     public TransistorExerciseController()
     {
@@ -79,7 +73,6 @@ public class TransistorExerciseController {
 
         transistor.setOnMouseClicked(e -> {
             transistor.changeState();
-//            System.out.println("Clicked the ON image!");
         });
     }
 
@@ -96,7 +89,6 @@ public class TransistorExerciseController {
 
         transistor.setOnMouseClicked(e -> {
             transistor.changeState();
-//            System.out.println("Clicked the OFF image!");
         });
     }
 
@@ -170,14 +162,5 @@ public class TransistorExerciseController {
         login = new Scene(root, 1600, 900);
         stage.setScene(login);
         stage.show();
-    }
-
-    // FOR TESTING - Drawing lines
-    public void createLineMaker()
-    {
-        TestLineNode testLineNode = new TestLineNode();
-        transistormainpane.getChildren().add(testLineNode);
-        testLineNode.setPickOnBounds(true);
-        drawLine.drawLine(testLineNode);
     }
 }

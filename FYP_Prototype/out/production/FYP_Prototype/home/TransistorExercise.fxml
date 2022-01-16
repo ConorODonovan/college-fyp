@@ -14,15 +14,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" stylesheets="@transistorexercise.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.TransistorExerciseController">
+<AnchorPane prefHeight="901.0" prefWidth="1599.0" stylesheets="@transistorexercise.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.TransistorExerciseController">
    <children>
-      <VBox id="transistor-left-vbox" layoutX="-2.0" layoutY="76.0" prefHeight="825.0" prefWidth="305.0">
+      <VBox id="transistor-left-vbox" layoutX="-2.0" layoutY="83.0" prefHeight="818.0" prefWidth="305.0">
          <children>
             <TabPane tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Transistors">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="305.0">
                            <children>
                               <Button fx:id="transistorOnButton" mnemonicParsing="false" onAction="#createTransistorOn" prefHeight="40.0" prefWidth="305.0" text="Transistor - On" />
                               <Button fx:id="transistorOffButton" layoutY="40.0" mnemonicParsing="false" onAction="#createTransistorOff" prefHeight="40.0" prefWidth="305.0" text="Transistor - Off" />
@@ -47,7 +47,7 @@
               </tabs>
             </TabPane>
          </children></VBox>
-      <HBox id="transistor-top-hbox" layoutX="-2.0" prefHeight="76.0" prefWidth="1607.0">
+      <HBox layoutX="-2.0" prefHeight="76.0" prefWidth="1607.0">
          <children>
             <VBox prefHeight="70.0" prefWidth="1609.0">
                <children>
@@ -55,27 +55,26 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Logout..." />
                               <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#exitApplication" text="Exit..." />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edit">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
+                          <MenuItem mnemonicParsing="false" text="Preferences..." />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Help">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="About" />
+                          <MenuItem mnemonicParsing="false" text="About..." />
                         </items>
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox id="transistor-top-hbox" prefHeight="58.0" prefWidth="1613.0">
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Resources/Images/codebug_logo.png" />
+                              <Image url="@images/logicgateicons/codebug_logo.png" />
                            </image>
                         </ImageView>
                         <Button id="button-logout" fx:id="buttonLogout" mnemonicParsing="false" onAction="#logout" text="Logout">
@@ -88,6 +87,6 @@
                </children>
             </VBox>
          </children></HBox>
-      <Pane id="transistor-exercise-main-pane" fx:id="transistormainpane" layoutX="303.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="826.0" prefWidth="1304.0" />
+      <Pane id="transistor-exercise-main-pane" fx:id="transistormainpane" layoutX="303.0" layoutY="83.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="818.0" prefWidth="1304.0" />
    </children>
 </AnchorPane>

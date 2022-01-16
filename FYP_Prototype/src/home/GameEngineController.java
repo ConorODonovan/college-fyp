@@ -21,7 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +36,7 @@ public class GameEngineController {
     private boolean objectSelected = false;
     private boolean cannotUnselect = false;
 
-    private ObservableList<String> input = FXCollections.observableArrayList("None", "Left Arrow", "Right Arrow", "Up Arrow", "Down Arrow", "A", "D", "W", "S");
+    private ObservableList<String> input = FXCollections.observableArrayList("None", "Left Arrow", "Right Arrow", "Up Arrow", "Down Arrow", "A", "D", "W", "S", "Space");
 
     private Image buttonPlay = new Image(getClass().getResourceAsStream("/home/images/logicgateicons/play.png"));
     private Image buttonStop = new Image(getClass().getResourceAsStream("/home/images/logicgateicons/stop.png"));
@@ -61,6 +60,8 @@ public class GameEngineController {
     MenuItem menuItemExit;
     @FXML
     Button playButton;
+    @FXML
+    Button buttonReset;
     @FXML
     Label isObjectSelectedLabel;
     @FXML
@@ -97,7 +98,6 @@ public class GameEngineController {
     private Draggable draggable = new Draggable();
     private ArrayList<Wall> platforms = new ArrayList<Wall>();
     private GameObject player;
-    private Wall wall;
     private Point2D playerVelocity = new Point2D(0, 0);
     private boolean canJump = true;
 
@@ -140,6 +140,13 @@ public class GameEngineController {
     }
 
     @FXML
+    private void reset() {
+        allObjects().clear();
+        gameWindow.getChildren().clear();
+        platforms.clear();
+    }
+
+    @FXML
     public void exitApplication() {
         Platform.exit();
     }
@@ -152,11 +159,20 @@ public class GameEngineController {
             objectSelected = false;
             updateObjectProperties();
             System.out.println("Object selected: " + objectSelected);
+
+            // Deselecting object by clicking in window
+            allObjects().forEach(s -> {
+                if (objectSelected == false) {
+                    s.setEffect(null);
+
+                    updateObjectProperties();
+                    getObjectProperties(s);
+                }
+            });
         }
     }
 
     private void update() {
-
         gameWindow.requestFocus();
 
         allObjects().forEach(s -> {
@@ -164,7 +180,7 @@ public class GameEngineController {
             s.setOnMouseExited(e -> cannotUnselect = false);
         });
 
-        // Testing new collision
+        // Collision and movement
         if (isPressed(getKeyJump(jumpInputChoiceBox.getValue())) && player.getTranslateY() >= jumpHeightSlider.getValue()) {
             jumpPlayer();
         }
@@ -188,14 +204,14 @@ public class GameEngineController {
         boolean movingRight = value > 0;
 
         for (int i = 0; i < Math.abs(value); i++) {
-            for (Node platform: platforms) {
+            for (Wall platform: platforms) {
                 if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
                     if (movingRight) {
                         if (player.getTranslateX() + player.getWidth() == platform.getTranslateX()) {
                             return;
                         }
                     } else {
-                        if (player.getTranslateX() == platform.getTranslateX() + wall.getWidth()) {
+                        if (player.getTranslateX() == platform.getTranslateX() + platform.getWidth()) {
                             return;
                         }
                     }
@@ -209,7 +225,7 @@ public class GameEngineController {
         boolean movingDown = value > 0;
 
         for (int i = 0; i < Math.abs(value); i++) {
-            for (Node platform : platforms) {
+            for (Wall platform : platforms) {
                 if (player.getBoundsInParent().intersects(platform.getBoundsInParent())) {
                     if (movingDown) {
                         if (player.getTranslateY() + player.getWidth() == platform.getTranslateY()) {
@@ -218,7 +234,7 @@ public class GameEngineController {
                             return;
                         }
                     } else {
-                        if (player.getTranslateY() == platform.getTranslateY() + wall.getWidth()) {
+                        if (player.getTranslateY() == platform.getTranslateY() + platform.getHeight()) {
                             return;
                         }
                     }
@@ -283,7 +299,7 @@ public class GameEngineController {
 
     @FXML
     public void createWall() {
-        wall = new Wall(200.0, 200.0, 100.0, 100.0, Color.GREY);
+        Wall wall = new Wall(200.0, 200.0, 100.0, 100.0, Color.GREY);
         draggable.makeDraggable(wall);
         wall.setFill(Color.GREY);
         wall.setStroke(Color.BLACK);
@@ -439,14 +455,17 @@ public class GameEngineController {
 
         } else if (currentlySelected.getClass() == Wall.class) {
 
-            double width = wall.getWidth();
-            widthSlider.setValue(width / 100);
+            for (Wall platform : platforms) {
 
-            double height = wall.getHeight();
-            heightSlider.setValue(height / 100);
+                double width = platform.getWidth();
+                widthSlider.setValue(width / 100);
 
-            Color color = wall.getColor();
-            colorPicker.setValue(color);
+                double height = platform.getHeight();
+                heightSlider.setValue(height / 100);
+
+                Color color = platform.getColor();
+                colorPicker.setValue(color);
+            }
         }
     }
 
@@ -470,9 +489,15 @@ public class GameEngineController {
         } else {
 
             if (currentlySelected.getClass() == Wall.class) {
-                wall.setWidth(widthSlider.getValue() * 100);
-                wall.setHeight(heightSlider.getValue() * 100);
-                wall.setColor(colorPicker.getValue());
+
+                for (Wall platform : platforms) {
+
+                    if (currentlySelected == platform) {
+                        platform.setWidth(widthSlider.getValue() * 100);
+                        platform.setHeight(heightSlider.getValue() * 100);
+                        platform.setColor(colorPicker.getValue());
+                    }
+                }
             }
         }
     }
@@ -514,6 +539,8 @@ public class GameEngineController {
             case "S":
                 key = KeyCode.S;
                 break;
+            case "Space":
+                key = KeyCode.SPACE;
         }
         return key;
     }
